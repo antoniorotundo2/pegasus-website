@@ -3,9 +3,13 @@ import zio._
 
 object Main extends ZIOAppDefault:
   val routes = Routes(
-    Method.GET / Root -> Handler.succeed(Response.text("Ciao da ZIO HTTP (Scala 3) su Render! 🚀")),
-    Method.GET / "saluta" / string("name") -> Handler.fromFunctionZIO[String] { name =>
-      ZIO.succeed(Response.text(s"Ciao, $name!"))
+    // Route senza parametri: un solo parametro (Request)
+    Method.GET / Root -> handler { (req: Request) =>
+      Response.text("Ciao da ZIO HTTP (Scala 3) su Render! 🚀")
+    },
+    // Route con parametro dal path: due parametri (String, Request)
+    Method.GET / "saluta" / string("name") -> handler { (name: String, req: Request) =>
+      Response.text(s"Ciao, $name!")
     }
   )
 
