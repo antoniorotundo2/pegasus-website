@@ -3,9 +3,9 @@ import zio.*
 
 object Main extends ZIOAppDefault:
   val routes = Routes(
-    Method.GET / Root -> handler(Response.text("Ciao da ZIO HTTP (Scala 3) su Render! 🚀")),
-    Method.GET / "saluta" / string("name") -> handler { (name: String) =>
-      Response.text(s"Ciao, $name!")
+    Method.GET / Root -> Handler.fromZIO(ZIO.succeed(Response.text("Ciao da ZIO HTTP (Scala 3) su Render! 🚀"))),
+    Method.GET / "saluta" / string("name") -> Handler.fromFunctionZIO[String] { name =>
+      ZIO.succeed(Response.text(s"Ciao, $name!"))
     }
   )
 
