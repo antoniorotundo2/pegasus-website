@@ -6,8 +6,9 @@ COPY project ./project
 COPY src ./src
 RUN sbt stage
 
-# Stage 2: runtime leggero
+# Stage 2: runtime leggero con bash
 FROM eclipse-temurin:17-jre-alpine
+RUN apk add --no-cache bash
 WORKDIR /app
 COPY --from=builder /app/target/universal/stage /app
 CMD ["./bin/pegasus-website"]
