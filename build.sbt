@@ -1,3 +1,4 @@
+name := "pegasus-website"
 scalaVersion := "3.3.4"
 
 enablePlugins(JavaAppPackaging)
